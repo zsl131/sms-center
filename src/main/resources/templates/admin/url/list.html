@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>连接列表</title>
+		<script type="text/javascript">
+			$(function() {
+				$(".delete-obj-href").deleteFun();
+			});
+		</script>
+	</head>
+<body>
+	<div th:fragment="content" th:remove="tag">
+		<div class="header lighter smaller blue">
+			<h3><span class="glyphicon glyphicon-th-list"></span>&nbsp;连接列表<small>（<span th:text="${datas.getTotalElements()}"></span>）</small></h3>
+			<div th:replace="admin/url/nav :: content" th:remove="tag"></div>
+		</div>
+
+        <div th:replace="admin/url/filter :: content" th:remove="tag"></div>
+
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>名称</th>
+						<th>token</th>
+						<th>短信剩余</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="obj : ${datas}">
+						<td th:text="${obj.name}">名称</td>
+						<td th:text="${obj.token}">token</td>
+						<td th:text="${obj.amount}">amount</td>
+						<td th:text="${obj.status eq '1' ? '启用':'停用'}"></td>
+						<td>
+							<div class="action-buttons">
+								<a class="blue auth" sn="AdminChargeController.add" title="充值" th:href="@{/admin/charge/add(cid=${obj.id})}"><i class="fa fa-plug"></i></a>
+								<a class="blue" title="授权" th:href="@{/admin/url/auth(id=${obj.id})}"><i class="fa fa-key"></i></a>
+								<a class="green auth" sn="AdminUrlController.update" title="修改" th:href="'/admin/url/update/'+${obj.id}">
+									<i class="fa fa-pencil"></i>
+								</a>
+
+								<a class="delete-obj-href red auth" sn="AdminUrlController.delete" th:title="'此操作不可逆，确定删除【'+${obj.name}+'】吗？'" th:href="'/admin/url/delete/'+${obj.id}">
+									<i class="fa fa-remove"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div th:include="fragments/page :: pager" th:remove="tag"></div>
+		</div>
+	</div>
+</body>
+</html>

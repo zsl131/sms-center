@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="fragments/adminModel">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<script type="text/javascript" src="/basic/validate/bootstrapValidator.js"></script>
+		<title>充值</title>
+	</head>
+	<body>
+		<div th:fragment="content" th:remove="tag">
+			<div class="header lighter smaller blue">
+				<h3><i class="fa fa-plug"></i>&nbsp;充值（<span th:remove="tag" th:text="${url.name}"></span>）</h3>
+				<div th:replace="admin/charge/nav :: content" th:remove="tag"></div>
+			</div>
+
+			<form method="POST" th:object="${charge}" id="dataForm">
+				<input name="cid" type="hidden" class="form-control" th:value="${url.id}" placeholder="请输入接入商名称" />
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">充值金额：</div>
+						<input name="money" type="text" class="form-control" th:value="${charge.money}" placeholder="请输入充值金额，单位分" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">充值条数：</div>
+						<input name="amount" type="text" class="form-control" placeholder="请输入充值条数" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<div class="input-group">
+						<div class="input-group-addon">描述：</div>
+						<textarea class="form-control" name="remark" th:text="${charge.remark}" placeholder="输入描述信息" style="height:80px; resize:none;"></textarea>
+					</div>
+				</div>
+				<input type="hidden" name="token" value="${session.token}"/>
+				<button type="submit" class="btn btn-primary">确定提交</button>
+			</form>
+		</div>
+	</body>
+</html>
