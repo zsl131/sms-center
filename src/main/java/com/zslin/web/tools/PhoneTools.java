@@ -10,7 +10,7 @@ public class PhoneTools {
     /**
      * 正则表达式：验证手机号
      */
-    public static final String REGEX_MOBILE = "^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+//    public static final String REGEX_MOBILE = "^((13[0-9])|(17[0-9])|(19[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
 
     /**
      * 校验手机号
@@ -19,6 +19,7 @@ public class PhoneTools {
      * @return 校验通过返回true，否则返回false
      */
     public static boolean isMobile(String mobile) {
-        return Pattern.matches(REGEX_MOBILE, mobile);
+//        return Pattern.matches(REGEX_MOBILE, mobile);
+        return (mobile!=null && mobile.length()==11 && mobile.startsWith("1") && mobile.matches("[0-9]+"));
     }
 }

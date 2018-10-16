@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 public class RootApplication {
 
     public static void main(String [] args) {
+        System.setProperty("user.timezone","America/Bahia");
         SpringApplication.run(RootApplication.class, args);
     }
 

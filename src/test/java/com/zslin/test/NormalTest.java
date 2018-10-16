@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Created by 钟述林 393156105@qq.com on 2017/2/5 15:00.
@@ -21,6 +23,13 @@ import java.net.URLEncoder;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("zsl")
 public class NormalTest {
+
+    @Test
+    public void testSendSms() throws Exception {
+        String con = URLEncoder.encode("#code#=00000", "UTF-8");
+        String res = SendSmsTools.send("15925061256", "296131", con);
+        System.out.println("res::"+res);
+    }
 
     @Test
     public void testRandom() {
@@ -57,7 +66,7 @@ public class NormalTest {
 
     @Test
     public void testPhone() {
-        String str = "18087021771";
+        String str = "18214274897";
         System.out.println(PhoneTools.isMobile(str));
     }
 
@@ -65,5 +74,16 @@ public class NormalTest {
     public void testCount() {
         String con = "【昭通网】你好，这是您的短信验证码：123456.请不要告诉任何人1，就算打死也不要告诉这是您的短信验证码：123456.请不要告诉任何人，就【昭通网】你好，这是您的短信验证码：123456.请不要告诉任何人，就算打死也不要告诉这是您的短信验证码：123456.请不要告诉任何人，就";
         System.out.println(con.length()+"======"+ ConTools.getCount(con));
+    }
+
+    @Test
+    public void test03() {
+//        System.setProperty("user.timezone","America/Bahia");
+        Calendar calendar = Calendar.getInstance();
+        System.out.println("目前时间：" + calendar.getTime());
+        System.out.println("Calendar时区：：" + calendar.getTimeZone().getID());
+        System.out.println("user.timezone：" + System.getProperty("user.timezone"));
+        System.out.println("user.country：" + System.getProperty("user.country"));
+        System.out.println("默认时区：" + TimeZone.getDefault().getID());
     }
 }
